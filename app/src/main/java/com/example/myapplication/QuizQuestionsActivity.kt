@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -19,6 +20,7 @@ class QuizQuestionsActivity : AppCompatActivity() {
     private var optionThree : TextView? = null
     private var optionFour : TextView? = null
 
+    @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
@@ -40,8 +42,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
             Log.e("Questions", i.question)
         }
 
-        var currentPosition = 1
+        val currentPosition = 1
         val question : Question = questionsList[currentPosition - 1]
+        flagImage?.setImageResource(question.image)
         progressBar?.progress = currentPosition
         progressText?.text = "$currentPosition / ${progressBar?.max}"
         theQuestion?.text = question.question
