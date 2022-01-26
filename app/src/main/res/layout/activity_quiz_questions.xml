@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:gravity="center"
+    android:backgroundTint="@color/contrast"
+    android:background="@color/contrast"
     tools:context=".QuizQuestionsActivity">
 
     <LinearLayout
@@ -47,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:max="10"
+                android:progressTint="@color/white"
                 android:indeterminate="false"
                 android:minHeight="50dp"
                 android:progress="0" />
@@ -58,6 +61,7 @@
                 android:gravity="center"
                 android:padding="15dp"
                 android:textSize="14sp"
+                android:textColor="@color/btnBG"
                 tools:text="0/9"/>
         </LinearLayout>
 

@@ -26,6 +26,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:background="@color/white"
+        android:backgroundTint="@color/white"
         app:cardCornerRadius="24dp"
         >
 
@@ -60,17 +61,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="20dp"
+                app:boxStrokeColor="@color/contrast">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/e_g_john"
+                    android:textSize="16sp"
                     android:inputType="textCapWords"
-                    android:textColor="#363A43"
-                    android:textColorHint="#7A8089"
-                    tools:ignore="TextContrastCheck"/>
+                    android:textColor="@color/btnBG"
+                    android:textColorHint="@color/btnBG"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
