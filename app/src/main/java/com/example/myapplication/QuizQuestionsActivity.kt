@@ -28,6 +28,11 @@ class QuizQuestionsActivity : AppCompatActivity() {
         theQuestion = findViewById(R.id.theQuestion)
         flagImage = findViewById(R.id.flagImage)
 
+        optionOne = findViewById(R.id.optionOne)
+        optionTwo = findViewById(R.id.optionTwo)
+        optionThree = findViewById(R.id.optionThree)
+        optionFour = findViewById(R.id.optionFour)
+
         val questionsList = Constants.getQuestions()
         Log.i("QuestionsList size is", "${questionsList.size}")
 
@@ -40,5 +45,9 @@ class QuizQuestionsActivity : AppCompatActivity() {
         progressBar?.progress = currentPosition
         progressText?.text = "$currentPosition / ${progressBar?.max}"
         theQuestion?.text = question.question
+        optionOne?.text = question.optionOne
+        optionTwo?.text = question.optionTwo
+        optionThree?.text = question.optionThree
+        optionFour?.text = question.optionFour
     }
 }
