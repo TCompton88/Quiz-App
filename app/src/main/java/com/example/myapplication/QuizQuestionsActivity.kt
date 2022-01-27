@@ -1,6 +1,7 @@
 package com.example.myapplication
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Bundle
@@ -15,6 +16,11 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     private var mCurrentPos: Int = 1
     private var mQuestionsList: ArrayList<Question>? = null
     private var mSelectedOptionPos: Int = 0
+
+    private var mUserName: String? = null
+    private var mCorrectAnswers: Int = 0
+
+    private var hasBeenClicked: Boolean = false
 
     //Variables
     private var progressBar : ProgressBar? = null
@@ -33,6 +39,9 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz_questions)
+
+        //Gets value from MainActivity intent which pulls from Constants
+        mUserName = intent.getStringExtra(Constants.USER_NAME)
 
         progressBar = findViewById(R.id.progressBar)
         progressText = findViewById(R.id.progressText)
@@ -61,6 +70,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
     @SuppressLint("SetTextI18n")
     private fun setQuestion() {
         defaultOptionsView()
+        hasBeenClicked = false
 
         val question: Question = mQuestionsList!![mCurrentPos - 1]
         flagImage?.setImageResource(question.image)
@@ -121,52 +131,63 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
                 optionOne?.let{
                     selectedOptionView(it, 1)
                 }
+                hasBeenClicked = true
             }
             R.id.optionTwo -> {
                 optionTwo?.let{
                     selectedOptionView(it, 2)
                 }
+                hasBeenClicked = true
             }
             R.id.optionThree -> {
                 optionThree?.let{
                     selectedOptionView(it, 3)
                 }
+                hasBeenClicked = true
             }
             R.id.optionFour -> {
                 optionFour?.let{
                     selectedOptionView(it, 4)
                 }
+                hasBeenClicked = true
             }
 
             R.id.submitBtn ->{
-                // TODO "Implement submission function"
-                if(mSelectedOptionPos == 0){
-                    mCurrentPos++
+                if(hasBeenClicked) {
+                    if (mSelectedOptionPos == 0) {
+                        mCurrentPos++
 
-                    when{
-                        mCurrentPos <= mQuestionsList!!.size -> {
-                            setQuestion()
+                        when {
+                            mCurrentPos <= mQuestionsList!!.size -> {
+                                setQuestion()
+                            }
+                            else -> {
+                                val intent = Intent(this, Results::class.java)
+                                intent.putExtra(Constants.USER_NAME, mUserName)
+                                intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+                                intent.putExtra(Constants.TOTAL_QUESTIONS, mQuestionsList?.size)
+                                startActivity(intent)
+                                finish()
+                            }
                         }
-                        else ->{
-                            Toast.makeText(this, "You made it",
-                                Toast.LENGTH_SHORT).show()
+                    } else {
+                        val question = mQuestionsList?.get(mCurrentPos - 1)
+
+                        if (question!!.correctAnswer != mSelectedOptionPos) {
+                            answerView(mSelectedOptionPos, R.drawable.incorrect_option_border_bg)
+                        } else {
+                            mCorrectAnswers++
                         }
-                    }
-                } else{
-                    val question = mQuestionsList?.get(mCurrentPos - 1)
+                        answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
 
-                    if(question!!.correctAnswer != mSelectedOptionPos){
-                        answerView(mSelectedOptionPos, R.drawable.incorrect_option_border_bg)
-                    }
-                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+                        if (mCurrentPos == mQuestionsList!!.size) {
+                            submitBtn?.text = "Finish"
+                        } else {
+                            submitBtn?.text = "Next"
+                        }
 
-                    if(mCurrentPos == mQuestionsList!!.size){
-                        submitBtn?.text = "Finish"
-                    } else{
-                        submitBtn?.text = "Next"
+                        mSelectedOptionPos = 0
                     }
-
-                    mSelectedOptionPos = 0
                 }
             }
         }

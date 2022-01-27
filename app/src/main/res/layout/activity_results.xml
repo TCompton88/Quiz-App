@@ -33,13 +33,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="@string/hey_congratulations"
-        android:textSize="32sp"
+        android:textSize="28sp"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:gravity="center"/>
 
     <TextView
-        android:id="@+id/resultName"
+        android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
