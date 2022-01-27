@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
+import android.graphics.drawable.AdaptiveIconDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -65,6 +66,7 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     private fun setQuestion() {
+        defaultOptionsView()
 
         val question: Question = mQuestionsList!![mCurrentPos - 1]
         flagImage?.setImageResource(question.image)
@@ -143,6 +145,54 @@ class QuizQuestionsActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.submitBtn ->{
                 // TODO "Implement submission function"
+                if(mSelectedOptionPos == 0){
+                    mCurrentPos++
+
+                    when{
+                        mCurrentPos <= mQuestionsList!!.size -> {
+                            setQuestion()
+                        }
+                    }
+                } else{
+                    val question = mQuestionsList?.get(mCurrentPos - 1)
+
+                    if(question!!.correctAnswer != mSelectedOptionPos){
+                        answerView(mSelectedOptionPos, R.drawable.incorrect_option_border_bg)
+                    }
+                    answerView(question.correctAnswer, R.drawable.correct_option_border_bg)
+
+                    if(mCurrentPos == mQuestionsList!!.size){
+                        submitBtn?.text = "Finish"
+                    } else{
+                        submitBtn?.text = "Next"
+                    }
+
+                    mSelectedOptionPos = 0
+                }
+            }
+        }
+    }
+
+    private fun answerView(answer: Int, drawableView: Int){
+        when(answer){
+            1 -> {
+                optionOne?.background = ContextCompat.getDrawable(this,
+                drawableView)
+            }
+
+            2 -> {
+                optionTwo?.background = ContextCompat.getDrawable(this,
+                    drawableView)
+            }
+
+            3 -> {
+                optionThree?.background = ContextCompat.getDrawable(this,
+                    drawableView)
+            }
+
+            4 -> {
+                optionFour?.background = ContextCompat.getDrawable(this,
+                    drawableView)
             }
         }
     }
