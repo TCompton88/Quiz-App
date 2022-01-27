@@ -6,32 +6,32 @@
     tools:context=".Results"
     android:orientation="vertical"
     android:background="@drawable/ic_bg"
-    android:gravity="center|top"
+    android:gravity="center|center_horizontal"
     android:padding="20dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="60dp"
+        android:gravity="center"
         android:text="@string/result"
-        android:textSize="32sp"
         android:textColor="@color/white"
+        android:textSize="32sp"
         android:textStyle="bold"
-        android:gravity="center"/>
+        tools:ignore="TextContrastCheck" />
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="393dp"
-        android:contentDescription="@string/todo"
-        android:scaleX=".8"
-        android:scaleY=".8"
+        android:layout_width="220dp"
+        android:layout_height="300dp"
+        android:contentDescription="@string/image"
         android:src="@drawable/ic_trophy"
         tools:ignore="ImageContrastCheck" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/hey_congratulations"
         android:textSize="32sp"
         android:textColor="@color/white"
@@ -50,6 +50,7 @@
         android:gravity="center"/>
 
     <TextView
+        android:id="@+id/userScore"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -59,11 +60,13 @@
         android:gravity="center"/>
 
     <Button
+        android:id="@+id/btnFinish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/finish"
         android:layout_marginTop="30dp"
         android:textSize="20sp"
+        android:textStyle="bold"
         android:textColor="@color/btnBG"
         android:backgroundTint="@color/white"
         android:layout_marginHorizontal="40dp"/>
